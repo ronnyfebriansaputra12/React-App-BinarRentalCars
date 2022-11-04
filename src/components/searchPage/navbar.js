@@ -1,4 +1,71 @@
+import { useState, useEffect } from "react";
+import "../../App.css";
+import useHistory from "react-router-dom";
+import { Navigate } from 'react-router-dom';
+import { GoogleLogin } from 'react-google-login';
+
+
+async function doLoginWithGoogle(token) {
+  // Sesuaikan endpoint
+  const response = await fetch("http://localhost:8000/api/v1/google", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      token
+    }),
+  });
+  const data = await response.json();
+  return data.token;
+}
+
+
 const Navbar = () =>{
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const token = localStorage.getItem("token");
+
+
+  useEffect(() => {
+    setIsLoggedIn(!!token);
+  }, [token]);
+
+
+  function handleLogout(e) {
+    setIsLoading(true);
+    e.preventDefault();
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    setIsLoading(false);
+    window.location.replace('/')
+  }
+
+  const haldleSuccessGoogle = (response) => {
+    console.log(response);
+    console.log(response.tokenId);
+    if(response.tokenId) {
+      doLoginWithGoogle(response.tokenId)
+        .then((token) => {
+            localStorage.setItem("token", token);
+            setIsLoggedIn(token);
+          })
+        .catch((err) => console.log(err.message))
+        .finally(() => setIsLoading(false));
+      
+      // localStorage.setItem("token", response.tokenId);
+      // setIsLoggedIn(response.tokenId);
+
+    }
+  }
+
+  const haldleFailureGoogle = (response) => {
+    console.log(response);
+    alert(response);
+  }
+
     return(
         <nav className="navbar navbar-expand-lg navbar-expand-sm fixed-top" style={{backgroundColor: '#f1f3ff'}}>
         <div className="container">
@@ -31,8 +98,22 @@ const Navbar = () =>{
                   <li className="nav-item">
                     <a className="nav-link" href="#faq">FAQ</a>
                   </li>
+                  <li className="nav-item">    
+
+                  </li>
                   <form className="form-inline my-2 my-lg-0">
-                    <button className="btn btn-success my-2 my-md-0" type="submit">Register</button>
+                  {!isLoggedIn ? (
+                        <GoogleLogin
+                        clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+                        buttonText="Login with Google"
+                        onSuccess={haldleSuccessGoogle}
+                        onFailure={haldleFailureGoogle}
+                        cookiePolicy={'single_host_origin'}
+                    />
+                    ) : (
+                        <input type="submit" className="btn btn-outline-danger" value="Logout" onClick={handleLogout}></input>
+                        
+                    )}
                   </form>
                 </ul>
               </div>

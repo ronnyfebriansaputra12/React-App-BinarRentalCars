@@ -6,7 +6,7 @@ import{
   Route
 } from "react-router-dom"
 import './index.css';
-import { LandingPage, SearchPage } from './components';
+import { LandingPage, SearchPage, Protected } from './components';
 import reportWebVitals from './reportWebVitals';
 import {createStore, compose, applyMiddleware} from 'redux'
 import { Provider } from 'react-redux';
@@ -18,14 +18,24 @@ const store = createStore(reducers, compose(applyMiddleware(thunk)))
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<LandingPage/>}></Route>
-        <Route path='/search' element={<SearchPage/>}></Route>
-      </Routes>
-    </BrowserRouter>
-  </Provider>
+  <React.StrictMode>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          
+          <Route path='/' element={          
+                <LandingPage /> 
+          }></Route>
+
+          <Route path='/search' element={          
+            <Protected>
+                <SearchPage />
+            </Protected>
+          }></Route>
+        </Routes>
+      </BrowserRouter>
+    </Provider>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
