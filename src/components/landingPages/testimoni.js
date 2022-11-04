@@ -4,9 +4,10 @@ const Testimoni = () =>{
         <div className="container">
           <div className="row">
             <div className="col-md-1"></div>
-  
             <div className="col-md-10">
-              <div className="carousel js-flickity d-none d-md-block"data-flickity-options='{ "wrapAround": true }'>
+{/*                 
+              <div className="carousel js-flickity d-none d-md-block"
+              data-flickity-options='{ "wrapAround": true }'>
                 <div className="carousel-cell">
                   <img src="asset/testi.png" alt="orange tree" />
                 </div>
@@ -16,10 +17,10 @@ const Testimoni = () =>{
                 <div className="carousel-cell">
                   <img src="asset/testi.png" alt="orange tree" />
                 </div>
-              </div>
+              </div> */}
   
-  
-              <div className="container pt-5 d-lg-none d-lg-block">
+                                            {/* d-lg-none d-lg-block */}
+              <div className="container pt-5 ">
                 <h2 className="h2 text-center">Testimonial</h2>
                 <p className="text-center py-3">Berbagai review positif dari para pelanggan kami</p>
                 <div id="carouselExampleControls" className="carousel slide mx-auto" style={{maxWidth: '90%'}} data-bs-ride="carousel">

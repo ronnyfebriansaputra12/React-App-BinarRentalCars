@@ -3,10 +3,34 @@ import { useDispatch, useSelector } from "react-redux"
 import { getListCars } from "../../actions/carsAction"
 import Cars from "../../reducers/cars"
 
-const ListKontak = () =>{
-    const {getListCarsResult,getListCarsLoading,getListCarsError} = useSelector((state) => state.CarsReducer)
 
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  function DateTime(hasil) {
+    const isPositive = getRandomInt(0, 1) === 1;
+    const timeAt = new Date();
+    const mutator = getRandomInt(1000000, 100000000);
+    hasil = new Date(timeAt.getTime() + (isPositive ? mutator : -1 * mutator))
+    return hasil
+  }
+
+
+function ListCars ({submit, data, jumlahpenumpang, tipedriver, tanggal, waktu}) {
+    const {getListCarsResult,getListCarsLoading,getListCarsError} = useSelector((state) => state.CarsReducer)
     const dispatch = useDispatch()
+    const jumlah = jumlahpenumpang
+    const tipe = tipedriver === "true" ? true : false
+    let d = (tanggal + " T " + waktu)
+    console.log (d);
+    let formdate = Date.parse(d)
+
+    console.log(Date.parse(tanggal));
+    
+    console.log(typeof(formdate));
 
  
     useEffect(() =>{
@@ -20,7 +44,9 @@ const ListKontak = () =>{
         <div className="container-fluid" style={{ padding:'100px'}}>
             <div className="row d-flex justify-content-center" id="cars-container">
             {getListCarsResult ? (
-                getListCarsResult.map((car) => {
+                getListCarsResult.filter((car) => car.capacity >= jumlah && car.available === tipe && 
+                Date.parse(DateTime(car.availableAt)) > formdate 
+                ).map((car) =>   {
                     return (
                             <div className="col-md-4" key={car.id}>
                                 <div className="card mb-3">
@@ -48,4 +74,4 @@ const ListKontak = () =>{
       );
 }
 
-export default ListKontak
+export default ListCars
