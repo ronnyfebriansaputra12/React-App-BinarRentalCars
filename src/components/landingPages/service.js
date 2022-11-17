@@ -1,3 +1,5 @@
+import React from 'react';
+
 const Service = () =>{
     return(
         <div className="container mt-3" id="service">

@@ -1,3 +1,5 @@
+import React from 'react'; 
+
 const Header = () =>{
     return(
         <header className="masthead text-dark" style={{backgroundColor: '#f1f3ff'}}>

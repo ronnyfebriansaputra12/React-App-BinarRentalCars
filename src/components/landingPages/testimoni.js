@@ -1,3 +1,5 @@
+import React from 'react';
+
 const Testimoni = () =>{
     return(
         <section id="testimoni" className="py-3">

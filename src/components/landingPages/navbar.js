@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import "../../App.css";
-import useHistory from "react-router-dom";
-import { Navigate } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
+import React from 'react';
 
 
 async function doLoginWithGoogle(token) {
@@ -22,10 +21,7 @@ async function doLoginWithGoogle(token) {
 
 
 const Navbar = () =>{
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const token = localStorage.getItem("token");
 
 
@@ -35,11 +31,9 @@ const Navbar = () =>{
 
 
   function handleLogout(e) {
-    setIsLoading(true);
     e.preventDefault();
     localStorage.removeItem("token");
     setIsLoggedIn(false);
-    setIsLoading(false);
   }
 
   const haldleSuccessGoogle = (response) => {
@@ -52,7 +46,6 @@ const Navbar = () =>{
             setIsLoggedIn(token);
           })
         .catch((err) => console.log(err.message))
-        .finally(() => setIsLoading(false));
       
       // localStorage.setItem("token", response.tokenId);
       // setIsLoggedIn(response.tokenId);

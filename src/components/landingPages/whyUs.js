@@ -1,3 +1,5 @@
+import React from 'react';
+
 const WhyUs = () =>{
     return(
         <div className="container mt-3" id="whyus">

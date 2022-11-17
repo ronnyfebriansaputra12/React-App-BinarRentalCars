@@ -6,6 +6,7 @@ import Testimoni from "./testimoni";
 import Sewa from "./sewa";
 import FAQ from "./faq";
 import Footer from "./footer";
+import React from 'react';
 
 const LandingPages = () =>{
     return(

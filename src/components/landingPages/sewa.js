@@ -1,3 +1,5 @@
+import React from 'react';
+
 const Sewa = () =>{
     return(
         <div className="container mt-5 mb-5" id="sewa">
