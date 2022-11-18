@@ -6,7 +6,7 @@ import React from 'react';
 
 async function doLoginWithGoogle(token) {
   // Sesuaikan endpoint
-  const response = await fetch("http://localhost:8000/api/v1/google", {
+  const response = await fetch("https://car-management-api-production-f136.up.railway.app/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -38,9 +38,9 @@ const Navbar = () =>{
 
   const haldleSuccessGoogle = (response) => {
     console.log(response);
-    console.log(response.tokenId);
-    if(response.tokenId) {
-      doLoginWithGoogle(response.tokenId)
+    console.log(response.credential);
+    if(response.credential) {
+      doLoginWithGoogle(response.credential)
         .then((token) => {
             localStorage.setItem("token", token);
             setIsLoggedIn(token);
@@ -103,7 +103,7 @@ const Navbar = () =>{
                               onError={() => {
                                 haldleFailureGoogle("error Login")
                               }}
-                            />;
+                            />
                         </GoogleOAuthProvider>
                     ) : (
                         <input type="submit" className="btn btn-outline-danger" value="Logout" onClick={handleLogout}></input>

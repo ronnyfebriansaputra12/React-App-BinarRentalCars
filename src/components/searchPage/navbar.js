@@ -104,7 +104,7 @@ const Navbar = () =>{
                               onError={() => {
                                 haldleFailureGoogle("error Login")
                               }}
-                            />;
+                            />
                         </GoogleOAuthProvider>
                     ) : (
                         <input type="submit" className="btn btn-outline-danger" value="Logout" onClick={handleLogout}></input>
