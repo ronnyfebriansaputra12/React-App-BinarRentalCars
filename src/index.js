@@ -6,7 +6,7 @@ import{
   Route
 } from "react-router-dom"
 import './index.css';
-import { LandingPage, SearchPage } from './components';
+import { LandingPage, SearchPage,Protected } from './components';
 import reportWebVitals from './reportWebVitals';
 import {createStore, compose, applyMiddleware} from 'redux'
 import { Provider } from 'react-redux';
@@ -28,9 +28,9 @@ root.render(
           }></Route>
 
           <Route path='/search' element={          
-        
+            <Protected>
                 <SearchPage />
-     
+            </Protected>
           }></Route>
         </Routes>
       </BrowserRouter>
