@@ -28,9 +28,8 @@ root.render(
           }></Route>
 
           <Route path='/search' element={          
-    
-                <SearchPage />
   
+                <SearchPage />
           }></Route>
         </Routes>
       </BrowserRouter>
