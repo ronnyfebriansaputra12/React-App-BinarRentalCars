@@ -28,8 +28,9 @@ root.render(
           }></Route>
 
           <Route path='/search' element={          
-  
+            <Protected>
                 <SearchPage />
+            </Protected>
           }></Route>
         </Routes>
       </BrowserRouter>
