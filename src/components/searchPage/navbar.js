@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "../../App.css";
-import React from 'react'; 
-import { GoogleLogin } from 'react-google-login';
+import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
+import React from 'react';
 
 
 async function doLoginWithGoogle(token) {
@@ -21,10 +21,8 @@ async function doLoginWithGoogle(token) {
 
 
 const Navbar = () =>{
-
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const token = localStorage.getItem("token");
-  
 
 
   useEffect(() => {
@@ -98,16 +96,18 @@ const Navbar = () =>{
                   </li>
                   <form className="form-inline my-2 my-lg-0">
                   {!isLoggedIn ? (
-                        <GoogleLogin
-                        clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-                        buttonText="Login with Google"
-                        onSuccess={haldleSuccessGoogle}
-                        onFailure={haldleFailureGoogle}
-                        cookiePolicy={'single_host_origin'}
-                    />
+                        <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
+                          <GoogleLogin
+                              onSuccess={credentialResponse => {
+                                haldleSuccessGoogle(credentialResponse)
+                              }}
+                              onError={() => {
+                                haldleFailureGoogle("error Login")
+                              }}
+                            />;
+                        </GoogleOAuthProvider>
                     ) : (
                         <input type="submit" className="btn btn-outline-danger" value="Logout" onClick={handleLogout}></input>
-                        
                     )}
                   </form>
                 </ul>
