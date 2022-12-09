@@ -18,7 +18,7 @@ export const getListCars = () =>{
         //get API
         axios({
             method:'GET',
-            url :'https://raw.githubusercontent.com/fnurhidayat/probable-garbanzo/main/data/cars.min.json',
+            url :'https://gotravel-production.up.railway.app/api/v1/airport',
             timeout : 120000
         }).then((response) =>{
             //Berhasil get APi
